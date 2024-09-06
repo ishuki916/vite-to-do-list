@@ -1,4 +1,29 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import axios from 'axios'
+
+const router = useRouter()
+const user = ref({
+  email: '',
+  password: ''
+})
+
+const login = async () => {
+  try {
+    const res = await axios.post('https://todolist-api.hexschool.io/users/sign_in', user.value)
+
+    document.cookie = `tkn=${res.data.token}; expires=${res.data.exp};path=/; `
+  } catch (err) {
+    alert(err.response.data.message)
+    user.value = {}
+  }
+}
+
+const signUpPage = () => {
+  router.push('/signUp')
+}
+</script>
 <template>
   <div id="loginPage" class="bg-yellow">
     <div class="conatiner loginPage vhContainer">
@@ -24,6 +49,7 @@
             type="text"
             id="email"
             name="email"
+            v-model="user.email"
             placeholder="請輸入 email"
             required
           />
@@ -34,16 +60,12 @@
             type="password"
             name="pwd"
             id="pwd"
+            v-model="user.password"
             placeholder="請輸入密碼"
             required
           />
-          <input
-            class="formControls_btnSubmit"
-            type="button"
-            onclick="javascript:location.href='#todoListPage'"
-            value="登入"
-          />
-          <a class="formControls_btnLink" href="#signUpPage">註冊帳號</a>
+          <input class="formControls_btnSubmit" type="button" @click="login" value="登入" />
+          <a class="formControls_btnLink" @click="signUpPage">註冊帳號</a>
         </form>
       </div>
     </div>
