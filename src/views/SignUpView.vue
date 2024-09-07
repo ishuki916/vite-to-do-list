@@ -22,6 +22,7 @@ const signUp = async () => {
     console.log(err.response.data.message)
     alert(err.response.data.message)
     newUser.value = {}
+    checkPwd.value = ''
   }
 }
 const loginPage = () => {
