@@ -6,12 +6,17 @@ const props = defineProps({
     required: true
   }
 })
-const emits = defineEmits(['delete'])
+const emits = defineEmits(['delete', 'toggle'])
 </script>
 <template>
   <li>
     <label class="todoList_label">
-      <input class="todoList_input" type="checkbox" :checked="todo.status" />
+      <input
+        class="todoList_input"
+        type="checkbox"
+        :checked="todo.status"
+        @change="emits('toggle')"
+      />
       <span>{{ todo.content }}</span>
     </label>
     <a @click="emits('delete')">

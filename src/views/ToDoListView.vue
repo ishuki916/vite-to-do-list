@@ -143,7 +143,13 @@ const deleteToDo = async (toDO) => {
           <div class="todoList_items">
             <ul class="todoList_item">
               <li v-if="toDoSize === 0">目前尚無待辦事項</li>
-              <AllToDoView v-for="toDo in toDoList" :key="toDo.id" :todo="toDo" @delete="deleteToDo(toDo)" />
+              <AllToDoView
+                v-for="toDo in toDoList"
+                :key="toDo.id"
+                :todo="toDo"
+                @delete="deleteToDo(toDo)"
+                @toggle="toggleToDo(toDo)"
+              />
             </ul>
             <div class="todoList_statistics">
               <p>{{ toDoSize }} 個待完成項目</p>
