@@ -76,14 +76,13 @@ const insertTodo = async () => {
     )
     toDoList.value.push(res.data.newTodo)
   } catch (err) {
-    console.log(err.response.data.message)
+    console.log('insert err:', err.response.data.message)
   } finally {
     content.value = ''
   }
 }
 const toggleToDo = async (toDO) => {
   try {
-    console.log(toDO)
     const res = await axios.patch(
       `https://todolist-api.hexschool.io/todos/${toDO.id}/toggle`,
       {},
@@ -94,7 +93,7 @@ const toggleToDo = async (toDO) => {
       }
     )
   } catch (err) {
-    console.log(err)
+    console.log('toggle err', err)
   }
 }
 
@@ -111,7 +110,7 @@ const deleteToDo = async (toDO) => {
       }
     })
   } catch (err) {
-    console.log(err.response.data.message)
+    console.log('delete err:', err.response.data.message)
   }
 }
 </script>
