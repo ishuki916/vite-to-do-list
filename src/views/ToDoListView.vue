@@ -141,6 +141,7 @@ const deleteToDo = async (toDO) => {
           </ul>
           <div class="todoList_items">
             <ul class="todoList_item">
+              <li v-if="toDoSize === 0">目前尚無待辦事項</li>
               <li v-for="toDo in toDoList" :key="toDo.id">
                 <label class="todoList_label">
                   <input
