@@ -3,6 +3,7 @@ import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 import { walk } from 'vue/compiler-sfc'
+import AllToDoView from './AllToDoView.vue'
 const router = useRouter()
 
 const userName = ref('')
@@ -135,27 +136,14 @@ const deleteToDo = async (toDO) => {
         </div>
         <div class="todoList_list">
           <ul class="todoList_tab">
-            <li><a href="#" class="active">全部</a></li>
-            <li><a href="#">待完成</a></li>
-            <li><a href="#">已完成</a></li>
+            <li><a id="allTag" class="active">全部</a></li>
+            <li><a id="toToTag">待完成</a></li>
+            <li><a id="finishedTag">已完成</a></li>
           </ul>
           <div class="todoList_items">
             <ul class="todoList_item">
               <li v-if="toDoSize === 0">目前尚無待辦事項</li>
-              <li v-for="toDo in toDoList" :key="toDo.id">
-                <label class="todoList_label">
-                  <input
-                    class="todoList_input"
-                    type="checkbox"
-                    :checked="toDo.status"
-                    @change="toggleToDo(toDo)"
-                  />
-                  <span>{{ toDo.content }}</span>
-                </label>
-                <a @click="deleteToDo(toDo)">
-                  <i class="fa fa-times"></i>
-                </a>
-              </li>
+              <AllToDoView v-for="toDo in toDoList" :key="toDo.id" :todo="toDo" @delete="deleteToDo(toDo)" />
             </ul>
             <div class="todoList_statistics">
               <p>{{ toDoSize }} 個待完成項目</p>
