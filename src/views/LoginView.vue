@@ -14,6 +14,8 @@ const login = async () => {
     const res = await axios.post('https://todolist-api.hexschool.io/users/sign_in', user.value)
 
     document.cookie = `tkn=${res.data.token}; expires=${res.data.exp};path=/; `
+
+    toDoListPage()
   } catch (err) {
     alert(err.response.data.message)
     user.value = {}
@@ -22,6 +24,10 @@ const login = async () => {
 
 const signUpPage = () => {
   router.push('/signUp')
+}
+
+const toDoListPage = () => {
+  router.push('/toDoList')
 }
 </script>
 <template>
